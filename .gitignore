@@ -2,3 +2,4 @@ secrets.json
 /StatBot/StatBot/bin
 /StatBot/StatBot/obj
 /StatBot/.vs
+/StatBot/packages
