@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30104.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatBot", "StatBot\StatBot.csproj", "{5B398289-C14F-4E71-9AD9-B3F3583929FA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B398289-C14F-4E71-9AD9-B3F3583929FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B398289-C14F-4E71-9AD9-B3F3583929FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B398289-C14F-4E71-9AD9-B3F3583929FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B398289-C14F-4E71-9AD9-B3F3583929FA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2AE66279-9EF5-4611-857E-6E2DD1A5E59B}
+	EndGlobalSection
+EndGlobal
