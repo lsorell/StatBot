@@ -14,5 +14,8 @@ namespace StatBot
 
         [JsonProperty("discord_token")]
         public string DiscordToken { get; set; }
+
+        [JsonProperty("command_prefix")]
+        public string CommandPrefix { get; set; }
     }
 }
