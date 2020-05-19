@@ -23,8 +23,7 @@ namespace StatBot
         private readonly DiscordSocketClient _client;
         private Config _config;
 
-        // Keep the CommandService and DI container around for use with commands.
-        // These two types require you install the Discord.Net.Commands package.
+        // Keep the CommandService and DI container around for use with commands.        
         private readonly CommandService _commands;
         private readonly IServiceProvider _services;        
 
@@ -47,12 +46,9 @@ namespace StatBot
             });
 
             _commands = new CommandService(new CommandServiceConfig
-            {
-                // Again, log level:
+            {                
                 LogLevel = LogSeverity.Info,
 
-                // There's a few more properties you can set,
-                // for example, case-insensitive commands.
                 CaseSensitiveCommands = false,
             });
 
@@ -120,7 +116,7 @@ namespace StatBot
             await _client.LoginAsync(TokenType.Bot, _config.DiscordToken);
             await _client.StartAsync();
 
-            // Wait infinitely so your bot actually stays connected.
+            // Wait infinitely so the bot stays connected.
             await Task.Delay(Timeout.Infinite);
         }       
     }

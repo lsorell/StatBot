@@ -47,11 +47,11 @@ namespace StatBot
             if (message == null) return;
 
             // Create a number to track where the prefix ends and the command begins
-            int argPos = 0;
+            int argStartPos = 0;
 
             // Determine if the message is a command based on the prefix and make sure no bots trigger commands
-            if (!(message.HasCharPrefix(_config.CommandPrefix, ref argPos) ||
-                message.HasMentionPrefix(_client.CurrentUser, ref argPos)) ||
+            if (!(message.HasCharPrefix(_config.CommandPrefix, ref argStartPos) ||
+                message.HasMentionPrefix(_client.CurrentUser, ref argStartPos)) ||
                 message.Author.IsBot)
                 return;
 
@@ -62,7 +62,7 @@ namespace StatBot
             // created, along with the service provider for precondition checks.
             await _commands.ExecuteAsync(
                 context: context,
-                argPos: argPos,
+                argPos: argStartPos,
                 services: null);
         }
     }
