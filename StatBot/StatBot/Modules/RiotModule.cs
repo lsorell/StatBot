@@ -11,14 +11,16 @@ namespace StatBot.Modules
         /// <summary>
         /// Echo's back the string after the command.
         /// </summary>
-        /// <param name="echo">The string to echo.</param>
-        /// <returns></returns>
+        /// <param name="echo">The string to echo.</param>        
         [Command("echo")]
         public Task EchoAsync([Remainder] string echo)
         {            
             return ReplyAsync(echo);
         }
 
+        /// <summary>
+        /// States the command prefix.
+        /// </summary>        
         [Command("prefix")]
         public Task PrefixAsync()
         {

@@ -4,6 +4,9 @@ using System.Text;
 
 namespace StatBot.Services
 {
+    /// <summary>
+    /// Holds configuration data for modules.
+    /// </summary>
     public class ConfigService
     {
         public static Config Config { get; set; }
