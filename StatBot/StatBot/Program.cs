@@ -104,24 +104,19 @@ namespace StatBot
             Console.WriteLine($"{DateTime.Now,-19} [{message.Severity,8}] {message.Source}: {message.Message} {message.Exception}");
             Console.ResetColor();
 
-            // If you get an error saying 'CompletedTask' doesn't exist,
-            // your project is targeting .NET 4.5.2 or lower. You'll need
-            // to adjust your project's target framework to 4.6 or higher
-            // (instructions for this are easily Googled).
-            // If you *need* to run on .NET 4.5 for compat/other reasons,
-            // the alternative is to 'return Task.Delay(0);' instead.
             return Task.CompletedTask;
         }
 
         private async Task MainAsync()
         {
+            string path = Path.Combine(Directory.GetCurrentDirectory(), @"config.json");
+            _config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(path));
+
             // Centralize the logic for commands into a separate method.
             CommandHandler commandHandler = new CommandHandler(_client, _commands, _config);
             await commandHandler.InstallCommandsAsync();
 
-            // Login and connect.
-            string path = Path.Combine(Directory.GetCurrentDirectory(), @"config.json");
-            _config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(path));
+            // Login and connect.            
             await _client.LoginAsync(TokenType.Bot, _config.DiscordToken);
             await _client.StartAsync();
 
