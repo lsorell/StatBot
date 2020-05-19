@@ -54,7 +54,7 @@ namespace StatBot
             });
 
             // Initialize config object and config service
-            string path = Path.Combine(Directory.GetCurrentDirectory(), @"config.json");
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "config.json");
             _config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(path));
             ConfigService configService = new ConfigService(_config);
 
