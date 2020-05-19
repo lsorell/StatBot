@@ -7,6 +7,7 @@ using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Newtonsoft.Json;
+using StatBot.Services;
 
 namespace StatBot
 {
@@ -56,6 +57,10 @@ namespace StatBot
                 CaseSensitiveCommands = false,
             });
 
+            // Initialize config object
+            string path = Path.Combine(Directory.GetCurrentDirectory(), @"config.json");
+            _config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(path));
+
             // Subscribe the logging handler to both the client and the CommandService.
             _client.Log += Log;
             _commands.Log += Log;
@@ -67,12 +72,12 @@ namespace StatBot
         // If any services require the client, or the CommandService, or something else you keep on hand,
         // pass them as parameters into this method as needed.
         // If this method is getting pretty long, you can seperate it out into another file using partials.
-        private static IServiceProvider ConfigureServices()
+        private IServiceProvider ConfigureServices()
         {
             var map = new ServiceCollection()
                 // Repeat this for all the service classes
                 // and other dependencies that your commands might need.
-                .AddSingleton(new Config());
+                .AddSingleton(new ConfigService(_config));
 
             // When all your required services are in the collection, build the container.
             // Tip: There's an overload taking in a 'validateScopes' bool to make sure
@@ -108,12 +113,9 @@ namespace StatBot
         }
 
         private async Task MainAsync()
-        {
-            string path = Path.Combine(Directory.GetCurrentDirectory(), @"config.json");
-            _config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(path));
-
+        {            
             // Centralize the logic for commands into a separate method.
-            CommandHandler commandHandler = new CommandHandler(_client, _commands, _config);
+            CommandHandler commandHandler = new CommandHandler(_client, _commands, _services, _config);
             await commandHandler.InstallCommandsAsync();
 
             // Login and connect.            

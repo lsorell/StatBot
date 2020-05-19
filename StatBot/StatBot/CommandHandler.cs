@@ -14,14 +14,17 @@ namespace StatBot
     {
         private readonly DiscordSocketClient _client;
         private readonly CommandService _commands;
-        private Config _config;
+        private readonly IServiceProvider _services;
+
+        public Config Config { get; set; }        
 
         // Retrieve client and CommandService instance via ctor
-        public CommandHandler(DiscordSocketClient client, CommandService commands, Config config)
+        public CommandHandler(DiscordSocketClient client, CommandService commands, IServiceProvider services, Config config)
         {
             _commands = commands;
             _client = client;
-            _config = config;
+            _services = services;
+            Config = config;            
         }
 
         public async Task InstallCommandsAsync()
@@ -37,7 +40,7 @@ namespace StatBot
             //
             // If you do not use Dependency Injection, pass null.
             // See Dependency Injection guide for more information.
-            await _commands.AddModulesAsync(assembly: Assembly.GetEntryAssembly(), services: null);
+            await _commands.AddModulesAsync(assembly: Assembly.GetEntryAssembly(), services: _services);
         }
 
         private async Task HandleCommandAsync(SocketMessage messageParam)
@@ -50,7 +53,7 @@ namespace StatBot
             int argPos = 0;
 
             // Determine if the message is a command based on the prefix and make sure no bots trigger commands
-            if (!(message.HasCharPrefix(_config.CommandPrefix, ref argPos) ||
+            if (!(message.HasCharPrefix(Config.CommandPrefix, ref argPos) ||
                 message.HasMentionPrefix(_client.CurrentUser, ref argPos)) ||
                 message.Author.IsBot)
                 return;

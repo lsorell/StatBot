@@ -4,13 +4,18 @@ using System.Text;
 
 namespace StatBot.Services
 {
-    public class ConfigService
+    public class ConfigService : IServiceProvider
     {
-        private Config _config;
+        public Config Config { get; set; }
 
         public ConfigService(Config config)
         {
-            _config = config;
+            Config = config;
+        }
+
+        public object GetService(Type serviceType)
+        {
+            return this;
         }
     }
 }
