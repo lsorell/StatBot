@@ -14,10 +14,8 @@ namespace StatBot
 
         [JsonProperty("discord_token")]
         public string DiscordToken { get; set; }
-
-        /// <summary>
-        /// The prefix the discord bot will use to recognize as a command.
-        /// </summary>
+        
+        /// The prefix the discord bot will use to recognize a command.        
         [JsonProperty("command_prefix")]
         public char CommandPrefix { get; set; }
     }

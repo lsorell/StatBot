@@ -15,6 +15,7 @@ namespace StatBot
         private readonly DiscordSocketClient _client;
         private readonly CommandService _commands;
         private readonly IServiceProvider _services;
+        private Config _config;
 
         public Config Config { get; set; }        
 
@@ -24,7 +25,7 @@ namespace StatBot
             _commands = commands;
             _client = client;
             _services = services;
-            Config = config;            
+            _config = config;            
         }
 
         public async Task InstallCommandsAsync()
@@ -53,7 +54,7 @@ namespace StatBot
             int argStartPos = 0;
 
             // Determine if the message is a command based on the prefix and make sure no bots trigger commands
-            if (!(message.HasCharPrefix(Config.CommandPrefix, ref argStartPos) ||
+            if (!(message.HasCharPrefix(_config.CommandPrefix, ref argStartPos) ||
                 message.HasMentionPrefix(_client.CurrentUser, ref argStartPos)) ||
                 message.Author.IsBot)
                 return;
@@ -66,7 +67,7 @@ namespace StatBot
             await _commands.ExecuteAsync(
                 context: context,
                 argPos: argStartPos,
-                services: null);
+                services: _services);
         }
     }
 }

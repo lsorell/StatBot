@@ -53,9 +53,10 @@ namespace StatBot
                 CaseSensitiveCommands = false,
             });
 
-            // Initialize config object
+            // Initialize config object and config service
             string path = Path.Combine(Directory.GetCurrentDirectory(), @"config.json");
             _config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(path));
+            ConfigService configService = new ConfigService(_config);
 
             // Subscribe the logging handler to both the client and the CommandService.
             _client.Log += Log;
@@ -73,12 +74,12 @@ namespace StatBot
             var map = new ServiceCollection()
                 // Repeat this for all the service classes
                 // and other dependencies that your commands might need.
-                .AddSingleton(new ConfigService(_config));
+                .AddSingleton<ConfigService>();
 
             // When all your required services are in the collection, build the container.
             // Tip: There's an overload taking in a 'validateScopes' bool to make sure
             // you haven't made any mistakes in your dependency graph.
-            return map.BuildServiceProvider();
+            return map.BuildServiceProvider(true);
         }
 
         // Example of a logging handler. This can be re-used by addons
