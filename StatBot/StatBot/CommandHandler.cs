@@ -3,38 +3,49 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 
 namespace StatBot
 {
+    /// <summary>
+    /// Handles command setup methods.
+    /// </summary>
     public class CommandHandler
     {
         private readonly DiscordSocketClient _client;
         private readonly CommandService _commands;
         private readonly IServiceProvider _services;
-        private Config _config;           
+        private Config _config;
 
-        // Retrieve client and CommandService instance via ctor
+        /// <summary>
+        /// Command handler constructor.
+        /// </summary>
+        /// <param name="client">The discord client to be passed in for dependency injection.</param>
+        /// <param name="commands">The command service to be passed in for dependency injection.</param>
+        /// <param name="services">The service provider collection to be passed in for dependency injection.</param>
+        /// <param name="config">The config to be passed in for dependency injection.</param>
         public CommandHandler(DiscordSocketClient client, CommandService commands, IServiceProvider services, Config config)
         {
             _commands = commands;
             _client = client;
             _services = services;
-            _config = config;            
+            _config = config;
         }
 
+        /// <summary>
+        /// Adds modules to commands.
+        /// </summary>
         public async Task InstallCommandsAsync()
         {
             // Hook the MessageReceived event into our command handler
             _client.MessageReceived += HandleCommandAsync;
 
-            // Here we discover all of the command modules in the entry 
+            // Here we discover all of the command modules in the entry
             // assembly and load them. Starting from Discord.NET 2.0, a
             // service provider is required to be passed into the
-            // module registration method to inject the 
+            // module registration method to inject the
             // required dependencies.
             //
             // If you do not use Dependency Injection, pass null.
