@@ -15,9 +15,7 @@ namespace StatBot
         private readonly DiscordSocketClient _client;
         private readonly CommandService _commands;
         private readonly IServiceProvider _services;
-        private Config _config;
-
-        public Config Config { get; set; }        
+        private Config _config;           
 
         // Retrieve client and CommandService instance via ctor
         public CommandHandler(DiscordSocketClient client, CommandService commands, IServiceProvider services, Config config)
