@@ -3,3 +3,5 @@ secrets.json
 /StatBot/StatBot/obj
 /StatBot/.vs
 /StatBot/packages
+StatBot/StatBot/config.json
+config.json
