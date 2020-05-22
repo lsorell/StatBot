@@ -1,6 +1,7 @@
 secrets.json
 /StatBot/StatBot/bin
 /StatBot/StatBot/obj
+/StatBot/StatBot/.vscode
 /StatBot/.vs
 /StatBot/packages
 StatBot/StatBot/config.json
