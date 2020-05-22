@@ -9,20 +9,18 @@ namespace StatBot.Modules
     /// </summary>
     public class RiotModule : ModuleBase<SocketCommandContext>
     {
-        public ConfigService ModConfigService { get; set; }
-
         [Command("echo")]
         [Summary("Echos back the message.")]
-        public Task EchoAsync([Remainder] string echo)
+        public async Task EchoAsync([Remainder] string echo)
         {
-            return ReplyAsync(echo);
+            await ReplyAsync(echo);
         }
 
         [Command("prefix")]
         [Summary("Prints the command prefix.")]
-        public Task PrefixAsync()
+        public async Task PrefixAsync()
         {
-            return ReplyAsync(ConfigService.BaseConfig.CommandPrefix.ToString());
+            await ReplyAsync(Config.CommandPrefix.ToString());
         }
     }
 }
