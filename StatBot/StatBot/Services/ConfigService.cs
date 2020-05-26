@@ -4,13 +4,18 @@ using System.Text;
 
 namespace StatBot.Services
 {
+    /// <summary>
+    /// Holds configuration data for modules.
+    /// </summary>
     public class ConfigService
     {
-        private Config _config;
+        public static Config BaseConfig { get; set; }
+
+        public ConfigService() { }
 
         public ConfigService(Config config)
         {
-            _config = config;
+            BaseConfig = config;
         }
     }
 }
