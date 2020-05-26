@@ -112,10 +112,10 @@ Outputs the value of the given statistical category for the given summoner name.
 
 #### Parameters
 
-| Param        | Description                              |
-| ------------ | ---------------------------------------- |
-| Category     | The statistical [category](#Categories). |
-| SummonerName | The summoner name of the player.         |
+| Param        | Description                                                    |
+| ------------ | -------------------------------------------------------------- |
+| Category     | The statistical [category](#Supported-Statistical-Categories). |
+| SummonerName | The summoner name of the player.                               |
 
 ---
 
