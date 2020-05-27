@@ -17,8 +17,6 @@ namespace StatBot
         private readonly CommandService _commands;
         private readonly IServiceProvider _services;
 
-        private Config _config;
-
         private Program()
         {
             _client = new DiscordSocketClient(new DiscordSocketConfig
@@ -111,7 +109,7 @@ namespace StatBot
         private async Task MainAsync()
         {
             // Centralize the logic for commands into a separate method.
-            CommandHandler commandHandler = new CommandHandler(_client, _commands, _services, _config);
+            CommandHandler commandHandler = new CommandHandler(_client, _commands, _services);
             await commandHandler.InstallCommandsAsync();
 
             // Login and connect.
