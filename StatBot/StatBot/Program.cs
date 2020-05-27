@@ -13,20 +13,11 @@ namespace StatBot
 {
     public class Program
     {
-        // Program entry point
-        static void Main(string[] args)
-        {
-            // Call the Program constructor, followed by the 
-            // MainAsync method and wait until it finishes (which should be never).
-            new Program().MainAsync().GetAwaiter().GetResult();
-        }
-
         private readonly DiscordSocketClient _client;
-        private Config _config;
-
-        // Keep the CommandService and DI container around for use with commands.        
         private readonly CommandService _commands;
-        private readonly IServiceProvider _services;        
+        private readonly IServiceProvider _services;
+
+        private Config _config;
 
         private Program()
         {
@@ -47,7 +38,7 @@ namespace StatBot
             });
 
             _commands = new CommandService(new CommandServiceConfig
-            {                
+            {
                 LogLevel = LogSeverity.Info,
 
                 CaseSensitiveCommands = false,
@@ -64,22 +55,6 @@ namespace StatBot
 
             // Setup your DI container.
             _services = ConfigureServices();
-        }
-
-        // If any services require the client, or the CommandService, or something else you keep on hand,
-        // pass them as parameters into this method as needed.
-        // If this method is getting pretty long, you can seperate it out into another file using partials.
-        private IServiceProvider ConfigureServices()
-        {
-            var map = new ServiceCollection()
-                // Repeat this for all the service classes
-                // and other dependencies that your commands might need.
-                .AddSingleton<ConfigService>();
-
-            // When all your required services are in the collection, build the container.
-            // Tip: There's an overload taking in a 'validateScopes' bool to make sure
-            // you haven't made any mistakes in your dependency graph.
-            return map.BuildServiceProvider(true);
         }
 
         // Example of a logging handler. This can be re-used by addons
@@ -103,24 +78,49 @@ namespace StatBot
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     break;
             }
+
             Console.WriteLine($"{DateTime.Now,-19} [{message.Severity,8}] {message.Source}: {message.Message} {message.Exception}");
             Console.ResetColor();
 
             return Task.CompletedTask;
         }
 
+        // Program entry point
+        static void Main(string[] args)
+        {
+            // Call the Program constructor, followed by the
+            // MainAsync method and wait until it finishes (which should be never).
+            new Program().MainAsync().GetAwaiter().GetResult();
+        }
+
+        // If any services require the client, or the CommandService, or something else you keep on hand,
+        // pass them as parameters into this method as needed.
+        // If this method is getting pretty long, you can seperate it out into another file using partials.
+        private IServiceProvider ConfigureServices()
+        {
+            var map = new ServiceCollection()
+                // Repeat this for all the service classes
+                // and other dependencies that your commands might need.
+                .AddSingleton<ConfigService>();
+
+            // When all your required services are in the collection, build the container.
+            // Tip: There's an overload taking in a 'validateScopes' bool to make sure
+            // you haven't made any mistakes in your dependency graph.
+            return map.BuildServiceProvider(true);
+        }
+
         private async Task MainAsync()
-        {            
+        {
             // Centralize the logic for commands into a separate method.
             CommandHandler commandHandler = new CommandHandler(_client, _commands, _services, _config);
             await commandHandler.InstallCommandsAsync();
 
-            // Login and connect.            
+            // Login and connect.
             await _client.LoginAsync(TokenType.Bot, _config.DiscordToken);
             await _client.StartAsync();
 
             // Wait infinitely so the bot stays connected.
             await Task.Delay(Timeout.Infinite);
-        }       
+        }
     }
 }

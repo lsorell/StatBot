@@ -4,17 +4,20 @@ using System.Threading.Tasks;
 
 namespace StatBot.Modules
 {
+    /// <summary>
+    /// Commands dealing with riot api can be found in this module.
+    /// </summary>
     public class RiotModule : ModuleBase<SocketCommandContext>
     {
-        public ConfigService ConfigService { get; set; }
-        
+        public ConfigService ModConfigService { get; set; }
+
         [Command("echo")]
         [Summary("Echos back the message.")]
         public Task EchoAsync([Remainder] string echo)
-        {            
+        {
             return ReplyAsync(echo);
         }
-       
+
         [Command("prefix")]
         [Summary("Prints the command prefix.")]
         public Task PrefixAsync()

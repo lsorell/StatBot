@@ -9,13 +9,13 @@ namespace StatBot.Services
     /// </summary>
     public class ConfigService
     {
-        public static Config BaseConfig { get; set; }
-
         public ConfigService() { }
 
         public ConfigService(Config config)
         {
             BaseConfig = config;
         }
+
+        public static Config BaseConfig { get; set; }
     }
 }
