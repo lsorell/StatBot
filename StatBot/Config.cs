@@ -8,15 +8,15 @@ namespace StatBot
     public class Config
     {
         [JsonProperty("riot_api_key")]
-        public string RiotAPIKey { get; set; }
+        public static string RiotAPIKey { get; set; }
 
         [JsonProperty("discord_token")]
-        public string DiscordToken { get; set; }
+        public static string DiscordToken { get; set; }
 
         /// <summary>
         /// The prefix the discord bot will use to recognize a command.
         /// </summary>
         [JsonProperty("command_prefix")]
-        public char CommandPrefix { get; set; }
+        public static char CommandPrefix { get; set; }
     }
 }

@@ -46,7 +46,7 @@ namespace StatBot
 
             // Initialize config object and config service
             string path = Path.Combine(Directory.GetCurrentDirectory(), "config.json");
-            _config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(path));
+            JsonConvert.DeserializeObject<Config>(File.ReadAllText(path));
 
             // Subscribe the logging handler to both the client and the CommandService.
             _client.Log += Log;
@@ -100,7 +100,7 @@ namespace StatBot
             var map = new ServiceCollection()
                 // Repeat this for all the service classes
                 // and other dependencies that your commands might need.
-                .AddSingleton<ConfigService>();
+                .AddSingleton<DatabaseService>();
 
             // When all your required services are in the collection, build the container.
             // Tip: There's an overload taking in a 'validateScopes' bool to make sure
@@ -115,7 +115,7 @@ namespace StatBot
             await commandHandler.InstallCommandsAsync();
 
             // Login and connect.
-            await _client.LoginAsync(TokenType.Bot, _config.DiscordToken);
+            await _client.LoginAsync(TokenType.Bot, Config.DiscordToken);
             await _client.StartAsync();
 
             // Wait infinitely so the bot stays connected.
