@@ -22,10 +22,10 @@ namespace StatBot
         /// <summary>
         /// Command handler constructor.
         /// </summary>
-        /// <param name="client">The discord client to be passed in for dependency injection.</param>
-        /// <param name="commands">The command service to be passed in for dependency injection.</param>
-        /// <param name="services">The service provider collection to be passed in for dependency injection.</param>
-        /// <param name="config">The config to be passed in for dependency injection.</param>
+        /// <param name="client">The discord client that handles commands.</param>
+        /// <param name="commands">The command service  to add modules to.</param>
+        /// <param name="services">The services for command modules.</param>
+        /// <param name="config">The config for command modules.</param>
         public CommandHandler(DiscordSocketClient client, CommandService commands, IServiceProvider services, Config config)
         {
             _commands = commands;
