@@ -17,7 +17,6 @@ namespace StatBot
         private readonly DiscordSocketClient _client;
         private readonly CommandService _commands;
         private readonly IServiceProvider _services;
-        private Config _config;
 
         /// <summary>
         /// Command handler constructor.
@@ -25,13 +24,11 @@ namespace StatBot
         /// <param name="client">The discord client that handles commands.</param>
         /// <param name="commands">The command service  to add modules to.</param>
         /// <param name="services">The services for command modules.</param>
-        /// <param name="config">The config for command modules.</param>
-        public CommandHandler(DiscordSocketClient client, CommandService commands, IServiceProvider services, Config config)
+        public CommandHandler(DiscordSocketClient client, CommandService commands, IServiceProvider services)
         {
             _commands = commands;
             _client = client;
             _services = services;
-            _config = config;
         }
 
         /// <summary>
@@ -63,7 +60,7 @@ namespace StatBot
             int argStartPos = 0;
 
             // Determine if the message is a command based on the prefix and make sure no bots trigger commands
-            if (!(message.HasCharPrefix(_config.CommandPrefix, ref argStartPos) ||
+            if (!(message.HasCharPrefix(Config.CommandPrefix, ref argStartPos) ||
                 message.HasMentionPrefix(_client.CurrentUser, ref argStartPos)) ||
                 message.Author.IsBot)
                 return;
