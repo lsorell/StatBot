@@ -112,6 +112,12 @@ namespace StatBot
             CommandHandler commandHandler = new CommandHandler(_client, _commands, _services);
             await commandHandler.InstallCommandsAsync();
 
+            //Create provider if none exits
+            if (!await DatabaseService.ProviderExistsAsync())
+            {
+                await DatabaseService.PutProviderAsync(await RiotService.GetProviderAsync());
+            }
+
             // Login and connect.
             await _client.LoginAsync(TokenType.Bot, Config.DiscordToken);
             await _client.StartAsync();

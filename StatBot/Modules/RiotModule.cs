@@ -1,4 +1,6 @@
 ﻿using Discord.Commands;
+using RiotSharp;
+using RiotSharp.Misc;
 using StatBot.Services;
 using System.Threading.Tasks;
 

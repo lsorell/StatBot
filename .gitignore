@@ -2,7 +2,11 @@ secrets.json
 StatBot/bin
 StatBot/obj
 StatBot/.vs
+StatBot/Migrations
 .vscode
 .vs
 packages
 config.json
+Statbot.db
+StatBot.db-shm
+StatBot.db-wal
